@@ -1,0 +1,18 @@
+#show_sketch{
+    float: right;
+}
+
+h1{
+   color:blue;
+   background-color: thistle; 
+}
+
+body{
+ background-color:yellow
+}
+p{
+font-size: 30px;
+}
+h2{
+    color:red;
+}
