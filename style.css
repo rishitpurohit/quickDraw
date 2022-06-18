@@ -1,47 +1,56 @@
-  .heading
-  {
-    width: 100%;
-    margin: 0px;
-    box-shadow:5px 5px 38px grey;
-    background-color:aqua;
-    font-weight: bold;
+#show_sketch{
+    float: right;
+}
 
-  }
-  .heading_div
+h1{
+   color:blue;
+   background-color: thistle; 
+}
+
+body{
+ background-color:yellow
+}
+p{
+font-size: 30px;
+}
+h2{
+    color:red;
+}
+h1
+{
+  font-family: 'Special Elite', fantasy;
+  color:rgb(38, 0, 255);
+  background-color: cornsilk;
+}
+
+#show_sketch
+{
+  float:right;
+}
+
+canvas 
   {
-    background: white ; 
-    border-radius: 20px; 
-    color: black;
+    border:5px solid white;
+    border-radius:20px;
+    margin-top: 170px;
     box-shadow:5px 5px 5px grey;
-  }
-  .heading_div2
+    box-shadow: 1px 1px 38px #ffffff;
+    animation-name: example;
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+}
+@keyframes example {
+
+  from {box-shadow: 1px 1px 38px grey;}
+  to {box-shadow: 1px 1px 38px white;}
+
+}
+
+
+p, span,h2
   {
-    font-size: 18px ;
+    padding-top:10px;
+    font-family: 'Special Elite', fantasy;
+    font-size:25px;
+    
   }
-  .result_para_tag
-  {
-    box-shadow:5px 5px 38px yellowgreen;
-    font-size: 20px;
-  }
-.copy_right_footer{
-  position: fixed;
-  color: green;
-  bottom: 0;
-  width: 100%;
-  background-color:blue;
-  line-height: 3;
-  text-align: center;
-}
-
-canvas{
-  animation-name: animation3;
-  animation-duration:1s;
-  animation-iteration-count:infinite;
-  margin-top: 140px;
-}
-
-
-@keyframes animation3 {
-  from{box-shadow:1px 1px 38px green}
-  to{box-shadow:1px 1px 38px cyan}
-}

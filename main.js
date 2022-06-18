@@ -1,40 +1,89 @@
-var previous_result = ""
+random_no=0;
+random_number=0;
+quick_draw_data_set=["aircraft carrier","airplane","alarm clock","ambulance","angel","animal migration","ant","anvil","apple","arm","asparagus","axe","backpack","banana","bandage","barn","baseball","baseball bat","basket","basketball","bat","bathtub","beach","bear","beard","bed","bee","belt","bench","bicycle","binoculars","bird","birthday cake","blackberry","blueberry","book","boomerang","bottlecap","bowtie","bracelet","brain","bread","bridge","broccoli","broom","bucket","bulldozer","bus","bush","butterfly","cactus","cake","calculator","calendar","camel","camera","camouflage","campfire","candle","cannon","canoe","car","carrot","castle","cat","ceiling fan","cello","cell phone","chair","chandelier","church","circle","clarinet","clock","cloud","coffee cup","compass","computer","cookie","cooler","couch","cow","crab","crayon","crocodile","crown","cruise ship","cup","diamond","dishwasher","diving board","dog","dolphin","donut","door","dragon","dresser","drill","drums","duck","dumbbell","ear", "elbow","elephant","envelope","eraser","eye","eyeglasses","face","fan","feather","fence","finger","fire hydrant","fireplace","firetruck","fish","flamingo","flashlight","flip flops","floor lamp","flower","flying saucer","foot","fork","frog","frying pan","garden","garden hose","giraffe","goatee","golf club","grapes","grass","guitar","hamburger","hammer","hand","harp","hat","headphones","hedgehog","helicopter","helmet","hexagon","hockey puck","hockey stick","horse","hospital","hot air balloon","hot dog","hot tub","hourglass","house","house plant","hurricane","ice cream","jacket","jail","kangaroo","key","keyboard","knee","knife","ladder","lantern","laptop","leaf","leg","light bulb","lighter","lighthouse","lightning","line","lion","lipstick","lobster","lollipop","mailbox","map","marker","matches","megaphone","mermaid","microphone","microwave","monkey","moon","mosquito","motorbike","mountain","mouse","moustache","mouth","mug","mushroom","nail","necklace","nose","ocean","octagon","octopus","onion","oven","owl","paintbrush","paint can","palm tree","panda","pants","paper clip","parachute","parrot","passport","peanut","pear","peas","pencil","penguin","piano","pickup truck","picture frame","pig","pillow","pineapple","pizza","pliers","police car","pond","pool","popsicle","postcard","potato","power outlet","purse","rabbit","raccoon","radio","rain","rainbow","rake","remote control","rhinoceros","rifle","river","roller coaster","rollerskates","sailboat","sandwich","saw","saxophone","school bus","scissors","scorpion","screwdriver","sea turtle","see saw","shark","sheep","shoe","shorts","shovel","sink","skateboard","skull","skyscraper","sleeping bag","smiley face","snail","snake","snorkel","snowflake","snowman","soccer ball","sock","speedboat","spider","spoon","spreadsheet","square","squiggle","squirrel","stairs","star","steak","stereo","stethoscope","stitches","stop sign","stove","strawberry","streetlight","string bean","submarine","suitcase","sun","swan","sweater","swingset","sword","syringe","table","teapot","teddy-bear","telephone","television","tennis racquet","tent","The Eiffel Tower","The Great Wall of China","The Mona Lisa","tiger","toaster","toe","toilet","tooth","toothbrush","toothpaste","tornado","tractor","traffic light","train","tree","triangle","trombone","truck","trumpet","tshirt","umbrella","underwear","van","vase","violin","washing machine","watermelon","waterslide","whale","wheel","windmill","wine bottle","wine glass","wristwatch","yoga","zebra","zigzag"]
+random_no = Math.floor((Math.random()*quick_draw_data_set.length)+1)
+sketch=0;
 
-function setup() {
-  canvas = createCanvas(300, 200);
-  canvas.center();
-  video = createCapture(VIDEO);
-  video.hide();
-  classifier=ml5.imageClassifier('MobileNet' , modelLoaded)
+console.log(
+    Element_of_array = quick_draw_data_set[random_no]);
+    sketch=quick_draw_data_set[random_no]
+
+   
+    
+    timer_counter=0;
+    timer_check="";
+    drawn_sketch="";
+    answer_holder="";
+    score=0;
+    random_number=Math.floor([length]);
+console.log(random_number)
+var result=0
+    function preload(){
+        classifier = ml5.imageClassifier('DoodleNet');
+        document.getElementById("id3").innerHTML="Sketch To Be Drawn "+sketch
+    }
+
+    function setup(){
+        canvas = createCanvas(200, 150);
+        canvas.center();
+        background("white");
+        canvas.mouseReleased(classifyCanvas);
+
+    }
+
+
+
+function classifyCanvas(){
+    classifier.classify(canvas,gotResult)
 }
-function preload(){
 
-} 
-
-function draw(){
-  image(video,0,0,300,250) 
-  classifier.classify(video,gotResult)
-}
-
-function modelLoaded(){
-  console.log("Model is loaded");
-}
-
-function gotResult(error,results){
+function gotResult(error , results){
 if(error){
-  console.error(error)
+    console.error(error)
 }
-else{
-if((results[0].confidence>0.5) && (previous_result!= results[0].label) ){
-console.log(results)
-previous_result=results[0].label
-var synth=window.speechSynthesis
-speak_data="object detected is"+results[0].label;
-var utterThis = new SpeechSynthesisUtterance(speak_data)
-synth.speak(utterThis)
-document.getElementById("result_object_name").innerHTML=results[0].label;
-document.getElementById("result_object_accuracy").innerHTML=Math.round(results[0].confidence*100)+"%"
-}
-}
+    console.log(results)
+result=results[0].label;
+document.getElementById("id1").innerHTML="Your Sketch:  "+result;
+document.getElementById("id2").innerHTML="Confidence:"+Math.round(results[0].label*100)+"%";
+
 }
 
+    function draw(){
+checkSketch()
+if(drawn_sketch==sketch){
+    answer_holder="set";
+    score++
+    document.getElementById("span1").innerHTML="score: " + score
+    strokeWeight(5);
+    stroke("yellow")
+   
+    if(mouseIsPressed){
+        line(pmouseX,pmouseY,mouseX,mouseY);
+
+    }
+}
+    }
+    function checkSketch(){
+timer_counter++
+document.getElementById("span2").innerHTML="timer: " + timer_counter
+console.log(timer_counter)
+if(timer_counter>400){
+timer_counter=0;
+timer_check="completed"
+}
+if(timer_check=="completed" || answer_holder=="set"){
+timer_check=""
+answer_holder=""
+update_canvas()
+}
+}
+    
+    function update_canvas(){
+       
+
+        random_number=Math.floor((Math.random()*quick_draw_data_set.length)+1);      
+          console.log(quick_draw_data_set[random_no]);
+          sketch=quick_draw_data_set[random_no]
+    document.getElementById("id3").innerHTML="Sketch To Be Drawn "+sketch
+        
+    }
